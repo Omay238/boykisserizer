@@ -1,4 +1,4 @@
-let {
+let json = {
     "ad": "Andorra",
     "ae": "United Arab Emirates",
     "af": "Afghanistan",
