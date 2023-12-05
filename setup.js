@@ -280,6 +280,7 @@ let json = {
 
 let images = {};
 let boykisser;
+let imageInput;
 
 function preload() {
     for (let i in json) {
@@ -298,6 +299,33 @@ function setup() {
         document.querySelector('#flags').appendChild(option);
     }
     document.querySelector("#loader").remove();
+
+    imageInput = select("#imageInput")
+    imageInput.changed(handleImage);
+}
+
+function handleImage() {
+  const file = imageInput.elt.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      const img = createImg(event.target.result, 'uploaded image', '', () => {
+        let aspectRatio = img.width / img.height;
+        let dWidth = height * aspectRatio;
+        image(img, width / 2, height / 2, dWidth, height);
+        image(boykisser, width / 2, height / 2, width, height);
+      });
+      img.hide();
+    };
+
+    reader.readAsDataURL(file);
+  }
+}
+
+function loadImage() {
+  imageInput.elt.click();
 }
 
 document.querySelector("#generate").addEventListener("click", () => {
