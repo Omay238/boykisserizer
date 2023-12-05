@@ -16,10 +16,24 @@
                 right: 0;
                 background-color: #000;
             }
+            #barcontainer {
+                width: 50vw;
+                height: 5vh;
+                border: 5px solid white;
+            }
+            #bar {
+                background: white;
+            }
         </style>
     </head>
     <body>
-        <div id="loader"></div>
+        <div id="loader">
+            <p>Loading...</p>
+            <span id="a">0</span><span>/</span><span id="b">0</span>
+            <div id="barcontainer">
+                <div id="bar"></div>
+            </div>
+        </div>
         <div id="image">
             <label>
                 Select a flag:
