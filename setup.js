@@ -285,9 +285,9 @@ let imageInput;
 function preload() {
     for (let i in json) {
         images[i] = loadImage('flags/' + i + '.png');
-        document.querySelector("#bar").width = Math.round(images.length / json.length) + "%";
-        document.querySelector("#a").innerText = images.keys.length;
-        document.querySelector("#b").innerText = json.keys.length;
+        document.querySelector("#bar").width = Math.round(Object.keys(images).length / Object.keys(json).length) + "%";
+        document.querySelector("#a").innerText = Object.keys(images).length;
+        document.querySelector("#b").innerText = Object.keys(json).length;
     }
     boykisser = loadImage('boykissertr.png');
 }
