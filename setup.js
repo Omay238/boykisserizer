@@ -279,14 +279,15 @@ let json = {
 };
 
 let images = {};
+let loaded = 0;
 let boykisser;
 let imageInput;
 
 function preload() {
     for (let i in json) {
-        images[i] = loadImage('flags/' + i + '.png');
-        document.querySelector("#bar").width = Math.round(Object.keys(images).length / Object.keys(json).length) + "%";
-        document.querySelector("#a").innerText = Object.keys(images).length;
+        images[i] = loadImage('flags/' + i + '.png', () => {loaded++});
+        document.querySelector("#bar").width = Math.round(loaded / Object.keys(json).length) + "%";
+        document.querySelector("#a").innerText = loaded;
         document.querySelector("#b").innerText = Object.keys(json).length;
     }
     boykisser = loadImage('boykissertr.png');
