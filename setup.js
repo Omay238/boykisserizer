@@ -284,28 +284,38 @@ let boykisser;
 let imageInput;
 
 function preload() {
-    for (let i in json) {
-        images[i] = loadImage('flags/' + i + '.png', () => {loaded++});
-        document.querySelector("#bar").width = Math.round(loaded / Object.keys(json).length) + "%";
-        document.querySelector("#a").innerText = loaded;
-        document.querySelector("#b").innerText = Object.keys(json).length;
-    }
-    boykisser = loadImage('boykissertr.png');
+  for (let i in json) {
+    images[i] = loadImage('flags/' + i + '.png', () => {
+      loaded++;
+      updateProgressBar();
+    });
+  }
+  boykisser = loadImage('boykissertr.png', () => {
+    loaded++;
+    updateProgressBar();
+  });
+}
+
+function updateProgressBar() {
+  let progress = Math.round((loaded / (Object.keys(json).length + 1)) * 100);
+  document.querySelector("#bar").style.width = progress + "%";
+  document.querySelector("#a").innerText = loaded;
+  document.querySelector("#b").innerText = Object.keys(json).length + 1;
 }
 
 function setup() {
-    createCanvas(boykisser.width / 2, boykisser.height / 2);
-    imageMode(CENTER);
-    for (let i in json) {
-        let option = document.createElement('option');
-        option.value = i;
-        option.innerHTML = json[i];
-        document.querySelector('#flags').appendChild(option);
-    }
-    document.querySelector("#loader").remove();
+  createCanvas(boykisser.width / 2, boykisser.height / 2);
+  imageMode(CENTER);
+  for (let i in json) {
+    let option = document.createElement('option');
+    option.value = i;
+    option.innerHTML = json[i];
+    document.querySelector('#flags').appendChild(option);
+  }
+  document.querySelector("#loader").remove();
 
-    imageInput = select("#imageInput")
-    imageInput.changed(handleImage);
+  imageInput = select("#imageInput");
+  imageInput.changed(handleImage);
 }
 
 function handleImage() {
@@ -333,9 +343,10 @@ function loadImage() {
 }
 
 document.querySelector("#generate").addEventListener("click", () => {
-    let img = images[document.querySelector("#flags").value];
-    let aspectRatio = img.width / img.height;
-    let dWidth = height * aspectRatio;
-    image(img, width / 2, height / 2, dWidth, height);
-    image(boykisser, width / 2, height / 2, width, height);
+  let img = images[document.querySelector("#flags").value];
+  let aspectRatio = img.width / img.height;
+  let dWidth = height * aspectRatio;
+  image(img, width / 2, height / 2, dWidth, height);
+  image(boykisser, width / 2, height / 2, width, height);
 });
+
